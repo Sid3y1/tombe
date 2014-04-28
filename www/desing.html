@@ -23,57 +23,14 @@ under the License.
 		<meta name="format-detection" content="telephone=no" />
 		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-		<link rel="stylesheet" type="text/css" href="css/noindex.css" />
+		<link rel="stylesheet" type="text/css" href="css/game.css" />
 		<title>Hello World</title>
 	</head>
 	<body>
+<style>
 
-		<style>
 
-			.grille {
-				width : 200px;
-				height : 200px;
-			}
-			.sprite {
-				width : 30px;
-				height : 30px;
-				/*border: 1px red solid;*/
-				position:absolute;
-			}
-			.mur {
-				background:url('img/mur.jpg');
-			}
-			.trou1 {
-				background-color:#F00;
-			}
-			.perso {
-				/*background-color:#CCC;*/
-				border: 1px red solid;
-			}
-			.rock1 {
-				border: 1px blue solid;
-
-			}
-
-			.sprite_rond {
-				    border-radius: 50%;
-					    width: 10px;
-					        height: 10px;
-						    padding: 8px;
-
-						        background: #fff;
-							    border: 2px solid #666;
-							        color: #666;
-								    text-align: center;
-
-								        font: 10px Arial, sans-serif;
-								}
-								.pick a {
-									border:1px red solid;
-									margin:10px;
-									padding:20px;
-								}
-		</style>
+</style>
 		<div class="grille" id="grille">
 		</div>
 		<div id="debug"></div>
@@ -83,26 +40,28 @@ under the License.
 			<a onclick="charge=1">1</a>
 			<a onclick="charge=-1">-1</a>
 			<a onclick="charge=9">9</a>
+			<a onclick="charge=-99">-99</a>
+			<a onclick="charge=99">99</a>
+<a onclick="document.getElementById('res').value = ' '+JSON.stringify(level);" >export</a>
+<textarea id="res"></textarea>
 		</div>
 		<script type="text/javascript" src="phonegap.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">
-			sprites = { '1':'rock1','-1':'trou1','0':'vide','9':'mur'};
+			sprites = { '1':'rock1','-1':'trou1','0':'vide','9':'mur','99':'win'};
 levels = [
-[ 	[9,9,9,9,9,9,9,9,9,9,9,9],
-	[9,0,0,0,0,0,0,0,0,0,0,9],
-	[9,0,0,0,0,0,0,0,0,0,0,9],
-	[9,1,0,0,0,0,0,0,0,0,0,9],
-	[9,0,0,0,9,0,0,0,0,0,0,9],
-	[9,0,0,0,0,0,0,0,9,0,0,9],
-	[9,0,0,0,0,0,0,0,9,9,9,9],
-	[9,0,0,0,0,0,0,0,0,0,0,9],
-	[9,0,0,0,0,0,0,0,0,0,0,9],
-	[9,0,0,0,0,0,0,0,0,0,0,9],
-	[9,0,0,0,0,0,0,0,0,0,0,9],
-	[9,0,0,0,0,0,0,0,0,0,0,9],
-	[9,9,0,0,0,0,0,0,0,0,0,9],
-	[9,9,9,9,9,9,9,9,9,9,9,9]]
+[ 	[9,9,9,9,9,9,9,9,9,9],
+	[9,0,0,0,0,0,0,0,0,9],
+	[9,0,0,0,0,0,0,0,0,9],
+	[9,0,0,0,0,0,0,0,0,9],
+	[9,0,0,0,0,0,0,0,0,9],
+	[9,0,0,0,0,0,0,0,0,9],
+	[9,0,0,0,0,0,0,0,0,9],
+	[9,0,0,0,0,0,0,0,0,9],
+	[9,0,0,0,0,0,0,0,0,9],
+	[9,0,0,0,0,0,0,0,0,9],
+	[9,0,0,0,0,0,0,0,0,9],
+	[9,9,9,9,9,9,9,9,9,9]]
 	];
 
 
