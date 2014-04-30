@@ -1,3 +1,7 @@
+.pick a {
+margin-left:340px;
+}
+
 .gameOver  {
 
 margin:50px;
@@ -17,7 +21,7 @@ background-color:#F33;
 }
 .grille {
 width : 200px;
-height : 200px;
+height : 400px;
 }
 .sprite {
 width : 30px;
@@ -46,18 +50,20 @@ margin:1px;
 	background: #333;
 
 }
-.trou1 {
-	background-color:#FF7647;
-}
 .perso {
 	/*background-color:#CCC;*/
 
 border: 1px red solid;
 }
-.rock1 {
-	background-color:#33F;
 
-}
+.trou1 { background-color:#FF7647;}
+.trou2 { background-color:#DF7647;}
+.trou3 { background-color:#8F7647;}
+.trou4 { background-color:#0F7647;}
+.rock1 { background-color:#33F;}
+.rock2 { background-color:#63F;}
+.rock3 { background-color:#93F;}
+.rock4 { background-color:#B3F;}
 
 .perso {
 	border-radius: 50%;

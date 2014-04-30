@@ -70,7 +70,19 @@ threshold:100
 });
 
 
-sprites = { '1':'rock1','-1':'trou1','0':'vide','9':'mur','99':"win"};
+sprites = { 
+'1':'rock1',
+'2':'rock2',
+'3':'rock3',
+'4':'rock4',
+'-1':'trou1',
+'-2':'trou2',
+'-3':'trou3',
+'-4':'trou4',
+'0':'vide',
+'9':'mur',
+'99':"win"
+};
 levels = [
 [ 	[9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9],
 	[9,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9],
@@ -248,7 +260,8 @@ function move(mx,my){
 						avance=1
 					}
 					break;
-				case (next >0 && next <9):
+//Sac vide et rock devant
+				case (next >0 && next <9 && sac.full ==0):
 					//TODO: detecter si besoin de faire la somme
 					sac.full = 1;
 					cx = mx;
@@ -261,12 +274,23 @@ function move(mx,my){
 					//					document.getElementsByClassName('X'+(perso.x+cx)+'Y'+(perso.y+cy))[0];
 					//On vide la case
 					level[perso.y+my][perso.x + mx] = 0;
-
-
-
 					avance=1;
-
 					break;
+
+				case (next >0 && next <9 && sac.full ==1):
+//Si le chiffre est identique
+if(sac.charge == level[perso.y+my +cx][perso.x + mx + cx]){
+level[perso.y+my +cx][perso.x + mx + cx] = 0;
+						removeCaseDom(perso.x+mx+cx,perso.y+my+cy);
+//Changement du style
+sac.dom.className = sac.dom.className.replace(sprites[sac.charge],sprites[sac.charge*2])
+sac.charge = sac.charge*2;
+sac.dom.innerHTML = sac.charge;
+
+}else{
+
+avance =0;
+}
 
 
 
@@ -283,5 +307,6 @@ function move(mx,my){
 }
 //            app.initialize();
 </script>
+<textarea id="import"></textarea><button onclick="levels[level_n] = JSON.parse(document.getElementById('import').value);loadLevel(level_n)" >IMPORT</button>
     </body>
 </html>
