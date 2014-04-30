@@ -35,13 +35,12 @@ under the License.
 		</div>
 		<div id="debug"></div>
 		<div class="pick" style="float:right">
-			<a onclick="charge=9">9</a>
-			<a onclick="charge=0">0</a>
-			<a onclick="charge=1">1</a>
-			<a onclick="charge=-1">-1</a>
-			<a onclick="charge=9">9</a>
-			<a onclick="charge=-99">-99</a>
-			<a onclick="charge=99">99</a>
+			<a class="sprite mur" onclick="charge=9">9</a>
+			<a class="sprite" onclick="charge=0">0</a>
+			<a class="sprite rock1"onclick="charge=1">1</a>
+			<a  class="sprite trou1" onclick="charge=-1">-1</a>
+			<a class="sprite perso" onclick="charge=-99">-99</a>
+			<a class="sprite win" onclick="charge=99">99</a>
 <a onclick="document.getElementById('res').value = ' '+JSON.stringify(level);" >export</a>
 <textarea id="res"></textarea>
 		</div>

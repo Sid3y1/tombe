@@ -23,7 +23,7 @@ under the License.
 		<meta name="format-detection" content="telephone=no" />
 		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-		<link rel="stylesheet" type="text/css" href="css/noindex.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" type="text/css" href="css/game.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css" />
 		<title>Hello World</title>
@@ -101,8 +101,14 @@ levels = [
 	level = null;
 	conf = { 's_size':'30' }
 	perso = {'x':1,'y':1};
+
+Array.prototype.clone = function() {
+		return this.slice(0);
+};
+
 function loadLevel(n){
-	level = levels[n];
+	console.log('LOAD='+n);
+	level = JSON.parse(JSON.stringify(levels[n]));
 	document.getElementById('grille').innerHTML = '';
 	for(i=0;i<level.length;i++){
 		for (j=0;j<level[i].length;j++){
@@ -110,8 +116,13 @@ function loadLevel(n){
 			y=conf.s_size*i;
 			//document.getElementById('grille').innerHTML += '<div class="sprite '+sprites[level[i][j]]+'" style="top:'+y+'px;left:'+x+'px">'+level[i][j]+'</div>';
 			if(level[i][j] != 0 && level[i][j] != -99){
-				document.getElementById('grille').innerHTML += '<div id="X'+j+'Y'+i+'" class="sprite '+sprites[level[i][j]]+' X'+j+'Y'+i+'" style="top:'+y+'px;left:'+x+'px">'+j+'.'+i+'</div>';
+				//document.getElementById('grille').innerHTML += '<div id="X'+j+'Y'+i+'" class="sprite '+sprites[level[i][j]]+' X'+j+'Y'+i+'" style="top:'+y+'px;left:'+x+'px">'+j+'.'+i+'</div>';
+				if(level[i][j] > -9 && level[i][j] < 9){
 
+				document.getElementById('grille').innerHTML += '<div id="X'+j+'Y'+i+'" class="sprite '+sprites[level[i][j]]+' X'+j+'Y'+i+'" style="top:'+y+'px;left:'+x+'px">'+level[i][j]+'</div>';
+				}else{
+				document.getElementById('grille').innerHTML += '<div id="X'+j+'Y'+i+'" class="sprite '+sprites[level[i][j]]+' X'+j+'Y'+i+'" style="top:'+y+'px;left:'+x+'px"></div>';
+				}
 			}
 			if( level[i][j] == -99){
 				perso.x=j;
@@ -119,12 +130,12 @@ function loadLevel(n){
 				level[i][j] = 0;
 				x = perso.x * conf.s_size;
 				y = perso.y * conf.s_size;
-				document.getElementById('grille').innerHTML += '<div id="perso" class="sprite perso" style="top:'+y+'px;left:'+x+'px">P</div>';
+				document.getElementById('grille').innerHTML += '<div id="perso" class="sprite perso" style="top:'+y+'px;left:'+x+'px"></div>';
 			}
 		}
 	}
 }
-level_n=1;
+level_n=5;
 loadLevel(level_n);
 document.onkeydown=function(e){
 	console.log(e.keyCode);
@@ -150,8 +161,10 @@ function state(){
 	console.log("PY="+perso.y);
 }
 function gameOver(){
+	document.getElementById('grille').innerHTML += '<div class="gameOver"><span> GAME OVER </span></div>'
 	console.log('GAME OVER');
-	document.getElementsByTagName('body')[0].style.backgroundColor = 'red';
+//	document.getElementsByTagName('body')[0].style.backgroundColor = 'red';
+	setTimeout(function(){loadLevel(level_n)},2000);
 }
 function winer(){
 	console.log('WIN');
@@ -202,7 +215,7 @@ function move(mx,my){
 
 			if(sac.full == 1){
 				//Si on a un sac on le deplace
-				sac.dom.style.border = "dashed 3px black";
+//				sac.dom.style.border = "dashed 3px black";
 				sac.dom.style.left=((perso.x+cx)*conf.s_size)+'px';
 				sac.dom.style.top=((perso.y+cy)*conf.s_size)+'px';
 			}
