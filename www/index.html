@@ -279,8 +279,8 @@ function move(mx,my){
 
 				case (next >0 && next <9 && sac.full ==1):
 //Si le chiffre est identique
-if(sac.charge == level[perso.y+my +cx][perso.x + mx + cx]){
-level[perso.y+my +cx][perso.x + mx + cx] = 0;
+if(sac.charge == level[perso.y+my +cy][perso.x + mx + cx]){
+level[perso.y+my +cy][perso.x + mx + cx] = 0;
 						removeCaseDom(perso.x+mx+cx,perso.y+my+cy);
 //Changement du style
 sac.dom.className = sac.dom.className.replace(sprites[sac.charge],sprites[sac.charge*2])
@@ -288,7 +288,6 @@ sac.charge = sac.charge*2;
 sac.dom.innerHTML = sac.charge;
 
 }else{
-
 avance =0;
 }
 
