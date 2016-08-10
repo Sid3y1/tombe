@@ -37,6 +37,7 @@ under the License.
 		<style>
 
 		</style>
+<div id="cont">
 		<div class="grille" id="grille">
 		</div>
 		<div id="debug"></div>
@@ -52,8 +53,9 @@ under the License.
 		<script type="text/javascript" src="js/levels.js"></script>
 		<script type="text/javascript" src="js/game.js"></script>
 
-<button class="levelbtn"> Level : <select name="level_selector" id="level_selector" onchange="loadLevel(this.value -1)"></select></button>
+<button class="levelbtn"> Level : <select name="level_selector" id="level_selector" onchange="level_n=this.value - 1;console.log(666666);loadLevel(this.value -1)"></select></button>
 <button onclick="loadLevel(level_n)" class="reset" >Reset level</button>
+</div><!-- /cont-->
 <script>
 
 if(typeof(localStorage.level) == "undefined"){
@@ -68,9 +70,11 @@ loadLevel(level_n);
 setTimeout(autoZoom,10);
 function autoZoom(){
 
-scale = window.innerWidth / 310;
-
-	document.body.style.zoom = scale;
+scalew = window.innerWidth / 310;
+scaleh = window.innerHeight / 450;
+scale = Math.min(scalew,scaleh);
+	//document.body.style.zoom = scale;
+	document.getElementById('cont').style.zoom = scale;
 
 	document.body.style.verticalAlign = "middle";
 	console.log(scale);

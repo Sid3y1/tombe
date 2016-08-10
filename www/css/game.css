@@ -115,7 +115,6 @@ margin-top:-10px;
 margin-left:-8px;
 font-size:25px;
 position:absolute;
-color:#F32;
 font-family: 'Nunito', sans-serif;
 }
 .trou1 .val { color:#FF7647 }
@@ -123,10 +122,10 @@ font-family: 'Nunito', sans-serif;
 .trou3 .val { color:#8F7647 }
 .trou4 .val { color:#0F7647 }
 
-.rock1 .val { color:#FF7647 }
-.rock2 .val { color:#DF7647 }
-.rock3 .val { color:#8F7647 }
-.rock4 .val { color:#0F7647 }
+.rock1 .val { color:#33F }
+.rock2 .val { color:#3F3 }
+.rock3 .val { color:#F33 }
+.rock4 .val { color:#FF3 }
 
 /*.trou1 { background-color:#FF7647;}
 .trou2 { background-color:#DF7647;}

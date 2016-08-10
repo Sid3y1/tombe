@@ -112,12 +112,16 @@ for(i=0;i<level.length;i++){
 }
 
 function fillSelector(n){
+change = document.getElementById('level_selector').onchange;
+document.getElementById('level_selector').onchange = "";
 console.log("fill"+n);
 document.getElementById('level_selector').innerHTML ="";
 for(i=0;i<n-1;i++){
-document.getElementById('level_selector').innerHTML += "<option>"+(i+1)+"</option>"
+document.getElementById('level_selector').innerHTML += "<option id='sel"+i+"'>"+(i+1)+"</option>"
 }
-document.getElementById('level_selector').innerHTML += "<option selected>"+(i+1)+"</option>"
+document.getElementById('level_selector').innerHTML += "<option id='sel"+i+"' selected>"+(i+1)+"</option>"
+
+document.getElementById('level_selector').onchange = change;
 }
 
 
@@ -125,7 +129,12 @@ function loadLevel(n){
 if(localStorage.level<n){
 localStorage.level = n;
 fillSelector(n);
-} 
+}else{
+console.log(document.getElementById('sel'+n));
+if( typeof(document.getElementById('sel'+n)) != "undefined" && document.getElementById('sel'+n) != null){
+document.getElementById('sel'+n).selected = "selected";
+}
+}
 	console.log('LOAD='+n);
 	level = JSON.parse(JSON.stringify(levels[n]));
 	document.getElementById('grille').innerHTML = '';
