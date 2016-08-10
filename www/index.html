@@ -23,10 +23,12 @@ under the License.
 		<meta name="format-detection" content="telephone=no" />
 		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
 		<!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
-		<link rel="stylesheet" type="text/css" href="css/index.css" />
+<!--		<link rel="stylesheet" type="text/css" href="css/index.css" />-->
 		<link rel="stylesheet" type="text/css" href="css/game.css" />
-		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
+<!--		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css" />-->
+<!--		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, target-densitydpi=medium-dpi, user-scalable=0" />-->
+<link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 
 		<title>Hello World</title>
 	</head>
@@ -41,18 +43,42 @@ under the License.
 
 		<script type="text/javascript" src="phonegap.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
+<!--
 		<script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
 		<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+-->		<script type="text/javascript" src="js/hammer.min.js"></script>
 		
 		<script type="text/javascript" src="js/levels.js"></script>
 		<script type="text/javascript" src="js/game.js"></script>
-<script>
-level_n=0;
-loadLevel(level_n);
-</script>
-<button onclick="loadLevel(level_n)" >Recommencer le niveau</button>
 
-<textarea id="import"></textarea><button onclick="levels[level_n] = JSON.parse(document.getElementById('import').value);loadLevel(level_n)" >IMPORT</button>
+<button class="levelbtn"> Level : <select name="level_selector" id="level_selector" onchange="loadLevel(this.value -1)"></select></button>
+<button onclick="loadLevel(level_n)" class="reset" >Reset level</button>
+<script>
+
+if(typeof(localStorage.level) == "undefined"){
+localStorage.level = 0;
+}
+
+fillSelector(localStorage.level);
+level_n=localStorage.level;
+loadLevel(level_n);
+
+
+setTimeout(autoZoom,10);
+function autoZoom(){
+
+scale = window.innerWidth / 310;
+
+	document.body.style.zoom = scale;
+
+	document.body.style.verticalAlign = "middle";
+	console.log(scale);
+}
+
+
+</script>
+<!--
+<textarea id="import"></textarea><button onclick="levels[level_n] = JSON.parse(document.getElementById('import').value);loadLevel(level_n)" >IMPORT</button>-->
     </body>
 </html>

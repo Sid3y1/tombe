@@ -1,3 +1,4 @@
+/*
 $(document).swipe( {
 	swipeUp:function(event, direction, distance, duration) {
 		move(0,-1);
@@ -22,6 +23,35 @@ threshold:100
 //      allowPageScroll:"vertical"
 });
 
+*/
+//var hammertime = new Hammer(myElement, myOptions);
+
+var mc = new Hammer(document);
+mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+
+
+// listen to events...
+mc.on("swipeleft swiperight swipeup swipedown", function(ev) {
+
+console.log(ev.type);
+switch(ev.type){
+case 'swipeup':
+move(0,-1);
+break;
+case 'swipedown':
+move(0,1);
+break;
+case 'swipeleft':
+move(-1,0);
+break;
+case 'swiperight':
+move(1,0);
+break;
+
+}
+
+
+});
 
 sprites = { 
 	'1':'rock1',
@@ -80,7 +110,22 @@ for(i=0;i<level.length;i++){
 	}
 }
 }
+
+function fillSelector(n){
+console.log("fill"+n);
+document.getElementById('level_selector').innerHTML ="";
+for(i=0;i<n-1;i++){
+document.getElementById('level_selector').innerHTML += "<option>"+(i+1)+"</option>"
+}
+document.getElementById('level_selector').innerHTML += "<option selected>"+(i+1)+"</option>"
+}
+
+
 function loadLevel(n){
+if(localStorage.level<n){
+localStorage.level = n;
+fillSelector(n);
+} 
 	console.log('LOAD='+n);
 	level = JSON.parse(JSON.stringify(levels[n]));
 	document.getElementById('grille').innerHTML = '';
@@ -93,7 +138,10 @@ function loadLevel(n){
 				//document.getElementById('grille').innerHTML += '<div id="X'+j+'Y'+i+'" class="sprite '+sprites[level[i][j]]+' X'+j+'Y'+i+'" style="top:'+y+'px;left:'+x+'px">'+j+'.'+i+'</div>';
 				if(level[i][j] > -9 && level[i][j] < 9){
 
-					document.getElementById('grille').innerHTML += '<div id="X'+j+'Y'+i+'" class="sprite '+sprites[level[i][j]]+' X'+j+'Y'+i+'" style="top:'+y+'px;left:'+x+'px">'+level[i][j]+'</div>';
+//MODE NEGATIF
+					//document.getElementById('grille').innerHTML += '<div id="X'+j+'Y'+i+'" class="sprite '+sprites[level[i][j]]+' X'+j+'Y'+i+'" style="top:'+y+'px;left:'+x+'px">'+level[i][j]+'</div>';
+//MODE ABS
+					document.getElementById('grille').innerHTML += '<div id="X'+j+'Y'+i+'" class="sprite '+sprites[level[i][j]]+' X'+j+'Y'+i+'" style="top:'+y+'px;left:'+x+'px"><span class="val">'+Math.abs(level[i][j])+'</span></div>';
 				}else{
 					document.getElementById('grille').innerHTML += '<div id="X'+j+'Y'+i+'" class="sprite '+sprites[level[i][j]]+' X'+j+'Y'+i+'" style="top:'+y+'px;left:'+x+'px"></div>';
 				}

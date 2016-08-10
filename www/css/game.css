@@ -1,3 +1,8 @@
+body{
+width:300px;
+overflow:hidden;
+}
+
 .pick a {
 margin-left:340px;
 }
@@ -20,8 +25,8 @@ background-color:#F33;
 
 }
 .grille {
-width : 200px;
-height : 400px;
+width : 300px;
+height : 360px;
 }
 .sprite {
 width : 30px;
@@ -35,7 +40,7 @@ position:absolute;
 	padding: 8px;
 margin:1px;
 /*	background: #F66;*/
-	border: 2px solid #666;
+/*	border: 2px solid #666; */
 	color: #333;
 	       text-align: center;
 	       font-weight:bold;
@@ -43,20 +48,87 @@ margin:1px;
 	       font: 16px Verdana, sans-serif;
 
 
-
+background-repeat:no-repeat !important;
 }
 .mur {
 /*background:url('../img/mur2.jpg');*/
-	background: #333;
+/*	background: #333;*/
+background:url('../img/mur.png');
+  background-size: contain;
+background-position: center center;
 
 }
 .perso {
 	/*background-color:#CCC;*/
 
-border: 1px red solid;
+/*border: 1px red solid;*/
+}
+.trou1, .trou2, .trou3, .trou4 {
+background:url('../img/trou.png');
+  background-size: contain;
+background-position: center center;
+font-size:20px;
+padding-top:-15px ! important;
 }
 
-.trou1 { background-color:#FF7647;}
+.rock1 , .rock2 , .rock3 , .rock4 {
+background:url('../img/roc.png');
+  background-size: contain;
+background-position: center center;
+font-size:15px;
+margin-left:-5px;
+
+
+}
+.perso {
+/*	border-radius: 50%;*/
+width: 10px;
+height: 10px;
+padding: 8px;
+
+background:url('../img/perso.png');
+  background-size: contain;
+background-position: center center;
+
+       text-align: center;
+
+font: 10px Arial, sans-serif;
+}
+.win {
+background:#CFC;
+background:url('../img/pin.png');
+  background-size: contain;
+background-position: center center;
+}
+ .reset , .levelbtn {
+width:30vw !important;
+display:inline !important;
+margin:5px;
+border:2px grey solid;
+background-color:#FFF;
+}
+.reset {
+background-color:#EEF;
+}
+.val {
+margin-top:-10px;
+margin-left:-8px;
+font-size:25px;
+position:absolute;
+color:#F32;
+font-family: 'Nunito', sans-serif;
+}
+.trou1 .val { color:#FF7647 }
+.trou2 .val { color:#DF7647 }
+.trou3 .val { color:#8F7647 }
+.trou4 .val { color:#0F7647 }
+
+.rock1 .val { color:#FF7647 }
+.rock2 .val { color:#DF7647 }
+.rock3 .val { color:#8F7647 }
+.rock4 .val { color:#0F7647 }
+
+/*.trou1 { background-color:#FF7647;}
 .trou2 { background-color:#DF7647;}
 .trou3 { background-color:#8F7647;}
 .trou4 { background-color:#0F7647;}
@@ -65,19 +137,4 @@ border: 1px red solid;
 .rock3 { background-color:#93F;}
 .rock4 { background-color:#B3F;}
 
-.perso {
-	border-radius: 50%;
-width: 10px;
-height: 10px;
-padding: 8px;
-
-background: #8B1CD9;
-border: 2px solid #666;
-color: #666;
-       text-align: center;
-
-font: 10px Arial, sans-serif;
-}
-.win {
-background:#CFC;
-}
+*/
