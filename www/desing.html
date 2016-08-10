@@ -31,10 +31,11 @@ under the License.
 
 
 </style>
-		<div class="grille" id="grille">
+		
 		</div>
 		<div id="debug"></div>
-		<div class="pick" >
+		<div class="pick" style="position:left;top:0px" >
+
 			<a class=" sprite mur" onclick="charge=9">9</a>
 <br />
 <br />
@@ -44,21 +45,45 @@ under the License.
 			<a class="sprite rock1"onclick="charge=1">1</a>
 <br />
 <br />
+<a class="sprite rock2"onclick="charge=2">2</a>
+<br />
+<br />
+<a class="sprite rock3"onclick="charge=3">3</a>
+<br />
+<br />
+<a class="sprite rock4"onclick="charge=4">4</a>
+<br />
+<br />
 			<a  class="sprite trou1" onclick="charge=-1">-1</a>
+<br />
+<br />
+<a  class="sprite trou2" onclick="charge=-2">-2</a>
+<br />
+<br />
+<a  class="sprite trou3" onclick="charge=-3">-3</a>
+<br />
+<br />
+<a  class="sprite trou4" onclick="charge=-4">-4</a>
 <br />
 <br />
 			<a class="sprite perso" onclick="charge=-99">-99</a>
 <br />
 <br />
 			<a class="sprite win" onclick="charge=99">99</a>
-<a onclick="document.getElementById('res').value = ' '+JSON.stringify(level);" >export</a>
+<button onclick="document.getElementById('res').value = ' '+JSON.stringify(level);" >export</button>
+<button onclick="levels = [ JSON.parse(document.getElementById('res').value)];drawLevel(0);" >import</button>
 <textarea id="res"></textarea>
 		</div>
+		<div class="grille" id="grille">
 		<script type="text/javascript" src="phonegap.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
+
+		<script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
 		<script type="text/javascript">
-			sprites = { '1':'rock1','-1':'trou1','0':'vide','9':'mur','99':'win'};
-levels = [
+			
+var levels = [
 [ 	[9,9,9,9,9,9,9,9,9,9],
 	[9,0,0,0,0,0,0,0,0,9],
 	[9,0,0,0,0,0,0,0,0,9],
@@ -72,184 +97,15 @@ levels = [
 	[9,0,0,0,0,0,0,0,0,9],
 	[9,9,9,9,9,9,9,9,9,9]]
 	];
-
-
-	function change(obj,i,j){
-console.log(i+'/'+j+'='+charge);
-		level[i][j]=charge;
-	       	//obj.charge=charge;
-		obj.className='sprite '+sprites[charge];
-
-	}
-level = null;
-conf = { 's_size':'30' }
-perso = {'x':1,'y':1};
-function loadLevel(n){
-	level = levels[n];
-	document.getElementById('grille').innerHTML = '';
-for(i=0;i<level.length;i++){
-	for (j=0;j<level[i].length;j++){
-		x=conf.s_size*j;
-		y=conf.s_size*i;
-		//document.getElementById('grille').innerHTML += '<div class="sprite '+sprites[level[i][j]]+'" style="top:'+y+'px;left:'+x+'px">'+level[i][j]+'</div>';
-			document.getElementById('grille').innerHTML += '<div id="X'+j+'Y'+i+'"  onclick="change(this,'+i+','+j+');" charge="'+level[i][j]+'"  class="sprite '+sprites[level[i][j]]+' X'+j+'Y'+i+'" style="top:'+y+'px;left:'+x+'px">'+j+'.'+i+'</div>';
-
-		if( level[i][j] == -99){
-			perso.x=j;
-			perso.y=i;
-		}
-	}
-}
-}
-level_n=0;
-loadLevel(level_n);
-x = perso.x * conf.s_size;
-y = perso.y * conf.s_size;
-
-document.getElementById('grille').innerHTML += '<div id="perso" class="sprite perso" style="top:'+y+'px;left:'+x+'px">P</div>';
-document.onkeydown=function(e){
-	console.log(e.keyCode);
-	switch(e.keyCode){
-		case 39:
-			move(1,0);
-			break;	
-		case 37:
-			move(-1,0);
-			break;	
-		case 40:
-			move(0,1);
-			break;	
-		case 38:
-			move(0,-1);
-			break;	
-	}
-
-};
-function state(){
-
-	console.log("PX="+perso.x);
-	console.log("PY="+perso.y);
-}
-function gameOver(){
-	console.log('GAME OVER');
-	document.getElementsByTagName('body')[0].style.backgroundColor = 'red';
-}
-function winer(){
-console.log('WIN');
-}
-function debug(v){
-	document.getElementById('debug').innerHTML = v;
-	console.log(v);
-}
-function getCaseDom(x,y){
-return document.getElementById('X'+x+'Y'+y);
-}
-function removeCaseDom(x,y){
-	console.log('X'+x+'Y'+y);
-	obj = getCaseDom(x,y);
-obj.parentNode.removeChild(obj);
-}
-function changeCaseDom(xinit,yinit,x,y){
-	obj = getCaseDom(xinit,yinit);
-	obj.id='X'+x+'Y'+y;
-}
-
-
-function move(mx,my){
-	console.log('MOVE'+mx+' '+my);
-	coli = 0;
-	sac = {full:0,charge:0,dom:null,xinit:null,yinit:null};
-
-	cx= 0;
-	cy= 0;
-	/*	if(level[perso.y][perso.x + mx] > 0){
-		sac=1;
-		cx = mx;
-		cy = my;
-		ados = 	document.getElementByClassName('X'+(perso.x+cx)+'Y'+(perso.y+cy))[0];
-		ados.style.border = "dashed 3px black";
-		}*/
-
-
-	avance = 1;
-	while(avance==1){
-	while(level[perso.y+my+cy][perso.x+mx+cx]==0){
-
-		perso.x = perso.x + mx;
-		perso.y = perso.y + my;
-		//si ya un mur dereire on ava,ce pas
-		document.getElementById('perso').style.left=(perso.x*conf.s_size)+'px';
-		document.getElementById('perso').style.top=(perso.y*conf.s_size)+'px';
-
-		if(sac.full == 1){
-			//Si on a un sac on le deplace
-			sac.dom.style.border = "dashed 3px black";
-			sac.dom.style.left=((perso.x+cx)*conf.s_size)+'px';
-			sac.dom.style.top=((perso.y+cy)*conf.s_size)+'px';
-		}
-	}
-	//ICI on viens de detecter autre chose que du vide en face, il faut donc faire qqchose et decider si on avance encore ou pas (avance=1)
-
-	next = level[perso.y+my+cy][perso.x+mx+cx]
-		switch(true){
-			case (next == 99):
-winer();
-loadLevel(++level_n);
-			avance=0;
-break;
-		case (next == 9):
-//DETECTION MUR 
-			avance=0;
-			break;
-		case (next < 0):
-			if(sac.charge != (-1 * next) ){
-				gameOver();
-			avance=0;
-			}else{
-				//ANNULER la CASE, vider le sac
-				sac.full=0;
-				level[perso.y+my+cy][perso.x+mx+cx] = 0;
-				removeCaseDom(sac.xinit,sac.yinit);
-				removeCaseDom(perso.x+mx+cx,perso.y+my+cy);
-				cx=0;
-				cy=0;
-				avance=1
-			}
-			break;
-		case (next >0 && next <9):
-//TODO: detecter si besoin de faire la somme
-	sac.full = 1;
-			cx = mx;
-			cy = my;
-			sac.charge = level[perso.y+my][perso.x + mx];
-			sac.xyClass = 'X'+(perso.x+cx)+'Y'+(perso.y+cy);
-			sac.xinit = (perso.x+cx);
-			sac.yinit = (perso.y+cy);
-			sac.dom = getCaseDom(sac.xinit,sac.yinit);
-//					document.getElementsByClassName('X'+(perso.x+cx)+'Y'+(perso.y+cy))[0];
-			//On vide la case
-			level[perso.y+my][perso.x + mx] = 0;
-
-
-
-			avance=1;
-
-			break;
-
-
-
-	}
-
-	}
-	if(sac.full == 1){
-		level[perso.y+cy][perso.x+cx] = sac.charge;
-		changeCaseDom(sac.xinit,sac.yinit);
-//		sac.dom.className =  sav.dom.className.replace(sac.xyClass,'X'+(perso.x+cx)+'Y'+(perso.y+cy));
-	}
-
-	state();
-}
-//            app.initialize();
 </script>
+
+		<script type="text/javascript" src="js/game.js"></script>
+		<script>
+level_n=0;
+drawLevel(level_n);
+</script>
+		
+
+
     </body>
 </html>
